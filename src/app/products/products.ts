@@ -1,37 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { IProduct } from '../models/iproduct';
 import { ICategory } from '../models/icategory';
+import { ProductService } from '../services/product';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class Products implements OnInit {
 
-  private products: IProduct[] = [
-    { id: 1, name: 'Dell Laptop', price: 10000, quantity: 5, categoryId: 1, date: new Date() },
-    { id: 2, name: 'HP Laptop', price: 9000, quantity: 3, categoryId: 1, date: new Date() },
-    { id: 3, name: 'iPhone', price: 15000, quantity: 4, categoryId: 2, date: new Date() },
-    { id: 4, name: 'Headphones', price: 500, quantity: 10, categoryId: 3, date: new Date() }
-  ];
+  products: IProduct[] = [];
+  categories: ICategory[] = [];
+  selectedCategoryId: number = 0;
 
-  private categories: ICategory[] = [
-    { id: 1, name: 'Laptops' },
-    { id: 2, name: 'Mobiles' },
-    { id: 3, name: 'Accessories' }
-  ];
+  constructor(private ProductService: ProductService){}
 
-  getAll(): IProduct[] {
-    return this.products;
+  ngOnInit(){
+    this.products = this.ProductService.getAll();
+    this.categories = this.ProductService.getCategories();
   }
 
-  getCategories(): ICategory[] {
-    return this.categories;
-  }
-
-  buy(id: number): void {
-    const product = this.products.find(p => p.id === id);
-    if (product && product.quantity > 0) {
-      product.quantity--;
+  get filteredProducts(): IProduct[] {
+    if (this.selectedCategoryId == 0) {
+      return this.products;
     }
+
+    return this.products.filter(
+      p => p.categoryId == this.selectedCategoryId
+    );
   }
+
+  onBuy(id: number){
+    this.ProductService.buy(id);
+  }
+
+  onView(id: number){
+    console.log(id);
+  }
+
 }

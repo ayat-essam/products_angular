@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IProduct } from '../../models/iproduct';
+import { IProduct } from '../models/iproduct';
 import { CommonModule } from '@angular/common';
 
 @Component({

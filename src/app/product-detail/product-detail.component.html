@@ -1,1 +1,14 @@
-<p>product-detail works!</p>
+<button (click)="goBack()">← Back to Products</button>
+
+<div *ngIf="product; else notFound">
+  <h2>{{ product.name }}</h2>
+  <p>💰 {{ product.price | currency:'USD' }}</p>
+  <p>📦 {{ product.quantity }}</p>
+  <p>📅 {{ product.date | date:'mediumDate' }}</p>
+
+</div>
+
+<ng-template #notFound>
+  <p>❌ Product not found</p>
+  <button (click)="goBack()">Back</button>
+</ng-template>
