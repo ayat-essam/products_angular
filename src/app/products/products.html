@@ -9,9 +9,11 @@
 {{ cat.name }}
 </option>
 </select>
-<app-product-card
-*ngFor="let p of filteredProducts"
-[product]="p"
-(bought)="onBuy($event)"
-(viewed)="onView($event)">
-</app-product-card>
+<div *ngFor="let p of filteredProducts">
+  <app-product-card 
+    [product]="p"
+    (bought)="onBuy($event)"
+    (viewed)="onView($event)">
+  </app-product-card>
+</div>
+

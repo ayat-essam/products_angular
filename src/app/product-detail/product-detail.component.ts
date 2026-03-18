@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IProduct } from '../models/iproduct';
-import {ProductService} from '../services/product'
+import { ProductService } from '../services/prodect-services';
+
 @Component({
   selector: 'app-product-detail',
   standalone: true,
@@ -13,22 +14,28 @@ import {ProductService} from '../services/product'
 export class ProductDetailComponent implements OnInit {
 
   product?: IProduct;
-  
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService
-  ){}
+  ) {}
 
-  ngOnInit(){
-    const id = +this.route.snapshot.paramMap.get('id')!;
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.product = this.productService.getById(id);
+    this.productService.getById(id)
+      .subscribe(data => this.product = data);
   }
 
-  goBack(){
+  goBack(): void {
     this.router.navigate(['/products']);
   }
+  deleteProduct(): void {
+    if (!this.product) return;
 
+    this.productService.delete(this.product.id)
+      .subscribe(() => {
+        this.router.navigate(['/products']);
+      });
+  }
 }
