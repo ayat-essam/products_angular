@@ -19,9 +19,12 @@ export class ProductService {
     { id: 2, name: 'Mobiles' },
     { id: 3, name: 'Accessories' }
   ];
-
   getAll(): IProduct[] {
     return this.products;
+  }
+
+  getById(id: number): IProduct | undefined {
+    return this.products.find(p => p.id === id);
   }
 
   getCategories(): ICategory[] {
@@ -29,9 +32,10 @@ export class ProductService {
   }
 
   buy(id: number): void {
-    const product = this.products.find(p => p.id === id);
+    const product = this.getById(id);
     if (product && product.quantity > 0) {
       product.quantity--;
     }
   }
+
 }
