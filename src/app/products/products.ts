@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IProduct } from '../models/iproduct';
 import { ICategory } from '../models/icategory';
 import { ProductService } from '../services/product';
-import { ProductCard } from '../components/product-card/product-card.component';
+import { ProductCard } from '../components/product-detail/product-card/product-card.component';
 @Component({
   selector: 'app-products',
   standalone: true,

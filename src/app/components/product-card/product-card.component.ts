@@ -19,8 +19,11 @@ export class ProductCard {
     this.bought.emit(this.product.id);
   }
 
-  onView(){
-    this.viewed.emit(this.product.id);
-  }
+
+onView(){
+  console.log(this.product.id)
+  this.viewed.emit(this.product.id);
+}
+  
 
 }
