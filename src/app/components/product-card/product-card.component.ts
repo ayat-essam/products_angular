@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IProduct } from '../models/iproduct';
+import { IProduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-card.component.css'
 })
 export class ProductCard {
-
   @Input() product!: IProduct;
 
   @Output() bought = new EventEmitter<number>();

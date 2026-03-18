@@ -1,22 +1,28 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { IProduct } from '../models/iproduct';
 import { ICategory } from '../models/icategory';
 import { ProductService } from '../services/product';
-
-@Injectable({
-  providedIn: 'root'
+import { ProductCard } from '../components/product-card/product-card.component';
+@Component({
+  selector: 'app-products',
+  standalone: true,
+  imports: [FormsModule, CommonModule, ProductCard],
+  templateUrl: './products.html',
+  styleUrls: ['./products.css']
 })
 export class Products implements OnInit {
-
+ storeName: string = 'NOON';
   products: IProduct[] = [];
   categories: ICategory[] = [];
   selectedCategoryId: number = 0;
 
-  constructor(private ProductService: ProductService){}
+  constructor(private productService: ProductService){}
 
   ngOnInit(){
-    this.products = this.ProductService.getAll();
-    this.categories = this.ProductService.getCategories();
+    this.products = this.productService.getAll();
+    this.categories = this.productService.getCategories();
   }
 
   get filteredProducts(): IProduct[] {
@@ -30,11 +36,10 @@ export class Products implements OnInit {
   }
 
   onBuy(id: number){
-    this.ProductService.buy(id);
+    this.productService.buy(id);
   }
 
   onView(id: number){
     console.log(id);
   }
-
 }

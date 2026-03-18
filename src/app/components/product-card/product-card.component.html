@@ -1,0 +1,9 @@
+
+<div class="card">
+  <h3>{{ product.name }}</h3>
+  <p>Price: {{ product.price | currency }}</p>
+  <p>Quantity: {{ product.quantity }}</p>
+
+  <button class="buy" (click)="onBuy()">Buy</button>
+  <button class="view" (click)="onView()">View →</button>
+</div>
